@@ -1,0 +1,75 @@
+<SelectableButton>:
+    # Draw a background to indicate selection
+    canvas.before:
+        Color:
+            rgba: (.0, 0.9, .1, .3) if self.selected else (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+<RV>:
+    rows: 4
+    font_size: 30
+    entry_text: entry
+    #Present: present
+    #Past: past
+    #PParticiple: Pparticiple
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y:0.1
+        Button:
+            text:"verb"
+            size_hint_x:0.4
+            on_release: root.submit()
+        TextInput:
+            id: entry
+            font_size:30
+            multiline: False
+            size_hint_x:0.4
+        Button:
+            text: "search"
+            size_hint_x: 0.4
+            on_release: root.search()
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y:0.1
+        canvas.before:
+            Color:
+                rgb: 0,.5,.2
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            id: present
+            markup: True
+            font_size: 24
+        Label:
+            id: past
+            markup: True
+            font_size: 24
+        Label:
+            id: Pparticiple
+            markup: True
+            font_size: 24
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y:0.1
+        Label:
+            text: "Present"
+        Label:
+            text: "Past"
+        Label:
+            text: "Past participal"
+
+    RecycleView:
+        viewclass: 'SelectableButton'
+        data: root.data
+        SelectableRecycleGridLayout:
+            cols: 3
+            default_size: None, dp(26)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            
+            multiselect: True
+            touch_multiselect: True
